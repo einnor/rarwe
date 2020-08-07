@@ -14,4 +14,10 @@ export default class BandsBandSongsController extends Controller {
     this.title = '';
     this.showAddSong = true;
   }
+
+  @action
+  cancel() {
+    this.title = '';
+    this.showAddSong = true;
+  }
 }
