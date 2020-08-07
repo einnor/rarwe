@@ -10,7 +10,7 @@ class Band {
   }
 }
 
-class Song {
+export class Song {
   title = '';
   rating = 0;
   band = '';
