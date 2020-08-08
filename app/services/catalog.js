@@ -18,4 +18,8 @@ export default class CatalogService extends Service {
   get bands() {
     return this.storage.bands;
   }
+
+  get songs() {
+    return this.storage.songs;
+  }
 }
