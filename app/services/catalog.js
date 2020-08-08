@@ -14,4 +14,8 @@ export default class CatalogService extends Service {
     const collection = type === 'band' ? this.bands : this.songs;
     collection.push(record);
   }
+
+  get bands() {
+    return this.storage.bands;
+  }
 }
