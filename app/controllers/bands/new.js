@@ -6,10 +6,12 @@ import { inject as service } from '@ember/service';
 
 export default class BandsNewController extends Controller {
   @service catalog;
+  @service router;
 
   @action
   saveBand() {
     const band = new Band({ name: this.name, slug: dasherize(this.name)});
     this.catalog.add('band', band);
+    this.router.transitionTo('bands.band.songs', band.slug);
   }
 }
