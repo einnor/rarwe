@@ -9,7 +9,7 @@ export class Band {
   constructor({ name, slug, songs }) {
     this.name = name;
     this.slug = slug;
-    this.songs = songs;
+    this.songs = songs ?? [];
   }
 }
 
