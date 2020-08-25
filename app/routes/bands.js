@@ -1,28 +1,7 @@
 import Route from '@ember/routing/route';
-import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-
-export class Band {
-  @tracked name;
-  @tracked songs;
-
-  constructor({ name, slug, songs }) {
-    this.name = name;
-    this.slug = slug;
-    this.songs = songs ?? [];
-  }
-}
-
-export class Song {
-  title = '';
-  rating = 0;
-  band = '';
-  constructor({ title, rating, band }) {
-    this.title = title;
-    this.rating = rating;
-    this.band = band;
-  }
-}
+import Band from 'rarwe/models/band';
+import Song from 'rarwe/models/song';
 
 export default class BandsRoute extends Route {
   @service catalog;
