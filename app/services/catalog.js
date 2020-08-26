@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import Band from 'rarwe/models/band';
+import Song from 'rarwe/models/song';
 // import { tracked } from '@glimmer/tracking';
 import { tracked } from 'tracked-built-ins';
 
@@ -20,16 +21,28 @@ export default class CatalogService extends Service {
     this.storage.songs = tracked([]);
   }
 
-  async fetchAll() {
-    const response = await fetch('/bands');
-    const json = await response.json();
-    for (let item of json.data) {
-      const { id, attributes, relationships } = item;
-      const rels = extractRelationships(relationships);
-      const record = new Band({ id, ...attributes}, rels);
-      this.add('band', record);
+  async fetchAll(type) {
+    if (type === 'bands') {
+      const response = await fetch('/bands');
+      const json = await response.json();
+      for (let item of json.data) {
+        const { id, attributes, relationships } = item;
+        const rels = extractRelationships(relationships);
+        const record = new Band({ id, ...attributes}, rels);
+        this.add('band', record);
+      }
+      return this.bands;
     }
-    return this.bands;
+    if (type === 'songs') {
+      const response = await fetch('/songs');
+      const json = await response.json();
+      for (let item of json.data) {
+        const { id, attributes, relationships } = item;
+        const rels = extractRelationships(relationships);
+        const record = new Song({ id, ...attributes}, rels);
+        this.add('song', record);
+      }
+      return this.songs;
   }
 
   add(type, record) {
