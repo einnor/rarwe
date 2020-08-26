@@ -20,6 +20,18 @@ export default class CatalogService extends Service {
     this.storage.songs = tracked([]);
   }
 
+  async fetchAll() {
+    const response = await fetch('/bands');
+    const json = await response.json();
+    for (let item of json.data) {
+      const { id, attributes, relationships } = item;
+      const rels = extractRelationships(relationships);
+      const record = new Band({ id, ...attributes}, rels);
+      this.add('band', record);
+    }
+    return this.bands;
+  }
+
   add(type, record) {
     const collection = type === 'band' ? this.bands : this.songs;
     collection.push(record);
