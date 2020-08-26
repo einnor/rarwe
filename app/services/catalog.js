@@ -25,24 +25,39 @@ export default class CatalogService extends Service {
     if (type === 'bands') {
       const response = await fetch('/bands');
       const json = await response.json();
-      for (let item of json.data) {
-        const { id, attributes, relationships } = item;
-        const rels = extractRelationships(relationships);
-        const record = new Band({ id, ...attributes}, rels);
-        this.add('band', record);
-      }
+      this.loadAll(json);
       return this.bands;
     }
     if (type === 'songs') {
       const response = await fetch('/songs');
       const json = await response.json();
-      for (let item of json.data) {
-        const { id, attributes, relationships } = item;
-        const rels = extractRelationships(relationships);
-        const record = new Song({ id, ...attributes}, rels);
-        this.add('song', record);
-      }
+      this.loadAll(json);
       return this.songs;
+    }
+  }
+
+  loadAll(json) {
+    const records = [];
+    for (let item of json.data) {
+      records.push(this._loadResource(item));
+    }
+    return records;
+  }
+
+  _loadResource(data) {
+    const record;
+    const { id, type, attributes, relationships } = data;
+    if (type === 'bands') {
+      const rels = extractRelationships(relationships);
+      record = new Band({ id, ...attributes }, rels);
+      this.add('band', record);
+    }
+    if (type === 'songs') {
+      const rels = extractRelationships(relationships);
+      record = new Song({ id, ...attributes }, rels);
+      this.add('song', record);
+    }
+    return record;
   }
 
   add(type, record) {
