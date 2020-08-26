@@ -1,6 +1,15 @@
 import Service from '@ember/service';
+import Band from 'rarwe/models/band';
 // import { tracked } from '@glimmer/tracking';
 import { tracked } from 'tracked-built-ins';
+
+function extractRelationships(object) {
+  const relationships = {};
+  for (let relationshipName in object) {
+    relationships[relationshipName] = object[relationshipName].links.related;
+  }
+  return relationships;
+}
 
 export default class CatalogService extends Service {
   storage = {};
