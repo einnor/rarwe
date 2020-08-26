@@ -11,6 +11,27 @@ export default class BandsBandSongsController extends Controller {
   @tracked title = '';
 
   @action
+  async updateRating(song, rating) {
+    song.rating = rating;
+    const payload = {
+      data: {
+        id: song.id,
+        type: 'songs',
+        attributes: {
+          rating
+        }
+      }
+    };
+    await fetch(`/songs/${song.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/vnd.api+json'
+      },
+      body: JSON.stringify(payload)
+    });
+  }
+
+  @action
   async saveSong() {
     const payload = {
       data: {
