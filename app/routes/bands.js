@@ -10,8 +10,12 @@ export default class BandsRoute extends Route {
     const response = await fetch('/bands');
     const json = await response.json();
     for (let item of json.data) {
-      const { id, attributes } = item;
-      const record = new Band({ id, ...attributes });
+      const { id, attributes, relationships } = item;
+      const rels = {};
+      for (let relationshipName in relationships) {
+        rels[relationshipName] = relationships[relationshipName].links.related;
+      }
+      const record = new Band({ id, ...attributes }, rels);
       this.catalog.add('band', record);
     }
     return this.catalog.bands;
