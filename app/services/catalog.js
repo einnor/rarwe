@@ -3,6 +3,7 @@ import Band from 'rarwe/models/band';
 import Song from 'rarwe/models/song';
 // import { tracked } from '@glimmer/tracking';
 import { tracked } from 'tracked-built-ins';
+import { isArray } from '@ember/array';
 
 function extractRelationships(object) {
   const relationships = {};
@@ -62,6 +63,18 @@ export default class CatalogService extends Service {
       this.add('song', record);
     }
     return record;
+  }
+
+  async fetchRelated(record, relationship) {
+    const url = record.relationships[relationship];
+    const response = await fetch(url);
+    const json = await response.json();
+    if (isArray(json.data)) {
+      record[relationship] = this.loadAll(json);
+    } else {
+      record[relationship] = this.load(json);
+    }
+    return record[relationship];
   }
 
   async create(type, attributes, relationships={}) {
