@@ -45,7 +45,7 @@ export default class CatalogService extends Service {
   }
 
   _loadResource(data) {
-    const record;
+    let record;
     const { id, type, attributes, relationships } = data;
     if (type === 'bands') {
       const rels = extractRelationships(relationships);
