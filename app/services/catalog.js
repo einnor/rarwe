@@ -116,7 +116,10 @@ export default class CatalogService extends Service {
 
   add(type, record) {
     const collection = type === 'band' ? this.bands : this.songs;
-    collection.push(record);
+    const recordIds = collection.map(record => record.id);
+    if (!recordIds.includes(record.id)) {
+      collection.push(record);
+    }
   }
 
   get bands() {
