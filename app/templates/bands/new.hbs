@@ -9,6 +9,7 @@ New band
         id="name"
         class="w-full text-gray-800 bg-white border rounded-md py-2 px-4"
         value={{this.name}}
+        data-test-rr="new-band-name"
         {{!-- {{on "input" (set this.name (get _ "target.value"))}} --}}
          {{on "input" (action (mut this.name) value="target.value")}}
       />
@@ -18,6 +19,7 @@ New band
     <button
       type="button"
       class="px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white"
+      data-test-rr="save-band-button"
       {{on "click" this.saveBand}}
     >
       Save
