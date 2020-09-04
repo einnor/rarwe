@@ -42,6 +42,11 @@ export default class BandsBandSongsController extends Controller {
   }
 
   @action
+  updateTitle(event) {
+    this.title = event.target.value;
+  }
+
+  @action
   updateSearchTerm(event) {
     this.searchTerm = event.target.value;
   }
