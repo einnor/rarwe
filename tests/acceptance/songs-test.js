@@ -54,7 +54,7 @@ module('Acceptance | songs', function(hooks) {
 
     await click('[data-test-rr=sort-by-title-desc]');
 
-    assert.dom('[data-test-rr=song-list-item]:firstchild').hasText('No One Loves Me & Neither Do I', 'A matching song that comes later in the alphabet appears on top');
-    assert.dom('[data-test-rr=song-list-item]:lastchild').hasText('Mind Eraser, No Chaser', 'A matching song that comes sooner in the alphabet appears at the bottom');
+    assert.dom('[data-test-rr=song-list-item]:first-child').hasText('No One Loves Me & Neither Do I', 'A matching song that comes later in the alphabet appears on top');
+    assert.dom('[data-test-rr=song-list-item]:last-child').hasText('Mind Eraser, No Chaser', 'A matching song that comes sooner in the alphabet appears at the bottom');
   });
 });
