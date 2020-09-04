@@ -8,6 +8,14 @@ export default class BandsBandSongsController extends Controller {
   @tracked showAddSong = true;
   @tracked title = '';
   @tracked sortBy = 'title';
+  @tracked searchTerm = '';
+
+  get matchingSongs() {
+    const searchTerm = this.searchTerm.toLowerCase();
+    return this.model.songs.filter(song => {
+      return song.title.toLowerCase().includes(searchTerm);
+    });
+  }
 
   get sortedSongs() {
     let sortBy = this.sortBy;
