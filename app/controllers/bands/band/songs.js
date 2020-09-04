@@ -42,6 +42,11 @@ export default class BandsBandSongsController extends Controller {
   }
 
   @action
+  updateSearchTerm(event) {
+    this.searchTerm = event.target.value;
+  }
+
+  @action
   async saveSong() {
     const song = await this.catalog.create(
       'song',
