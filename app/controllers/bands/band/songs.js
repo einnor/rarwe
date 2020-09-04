@@ -24,7 +24,7 @@ export default class BandsBandSongsController extends Controller {
       sortBy = this.sortBy.slice(1);
       isDescendingSort = true;
     }
-    return [...this.model.songs].sort((song1, song2) => {
+    return this.matchingSongs.sort((song1, song2) => {
       if (song1[sortBy] < song2[sortBy]) {
         return isDescendingSort ? 1 : -1;
       }
